@@ -104,4 +104,3 @@ class Optimisation(FlowSpec):
 
 
 opt = Optimisation()
-opt.optimise()
