@@ -1,0 +1,7 @@
+panda
+numpy
+catboost
+optuna
+sklearn
+sqlalchemy
+psycopg2-binary
