@@ -80,16 +80,25 @@ class Optimisation(FlowSpec):
         print("Number of finished trials: {}".format(len(study.trials)))
 
         print("Record Best trial:")
-        # Each optimise worker will record the same best trial
+        # Record this worker's best trial
         self.trial = study.best_trial
 
         self.next(self.join)
 
     @step
     def join(self, inputs):
-        # As each optimise worker will record the same global best trial, simply use the first
-        # optimise worker result to obtain the best one
-        best_trial = inputs[0].trial
+        # Find the global best trial amongst worker's best trial
+        best_trial = None
+        best_trial_value = 0
+
+        for input in inputs:
+            cur_best_trial = input.trial
+            print(f"Best trial for this worker {cur_best_trial.value}")
+
+            if best_trial is None or cur_best_trial.value > best_trial_value:
+                best_trial = cur_best_trial
+                best_trial_value = cur_best_trial.value
+
         print("Value: {}".format(best_trial.value))
 
         print("Params: ")
